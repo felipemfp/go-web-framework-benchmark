@@ -99,4 +99,5 @@ require (
 	gopkg.in/ini.v1 v1.42.0 // indirect
 	gopkg.in/macaron.v1 v1.3.2
 	gopkg.in/yaml.v2 v2.2.2 // indirect
+	github.com/lab259/http 00837fb23bd54171691b1d8c6064a6ad5cafe2dc
 )

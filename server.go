@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"strconv"
 	"time"
-
+	lab259Http "github.com/lab259/http"
 	"github.com/ant0ine/go-json-rest/rest"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
@@ -175,6 +175,8 @@ func main() {
 		startHTTPRouter()
 	case "httptreemux":
 		starthttpTreeMux()
+	case  "lab259/http":
+		startLab259Http()
 	case "lars":
 		startLars()
 	case "lion":
@@ -786,6 +788,30 @@ func starthttpTreeMux() {
 	mux := httptreemux.New()
 	mux.GET("/hello", httpTreeMuxHandler)
 	http.ListenAndServe(":"+strconv.Itoa(port), mux)
+}
+
+// lab259/http
+func lab259HttpHandler(req lab259Http.Request, res lab259Http.Response) lab259Http.Result {
+	if cpuBound {
+		pow(target)
+	} else {
+		if sleepTime > 0 {
+			time.Sleep(sleepTimeDuration)
+		} else {
+			runtime.Gosched()
+		}
+	}
+	return res.Data(message)
+}
+func startLab259Http() {
+	router := lab259Http.NewDefaultRouter()
+	router.Get("/hello", lab259HttpHandler)
+	app := lab259Http.NewApplication(lab259Http.ApplicationConfig&{
+		HTTP: lab259Http.FasthttpServiceConfiguration{
+			Bind: ":"+strconv.Itoa(port),
+		}
+	}, router)
+	app.Start()
 }
 
 // lars
